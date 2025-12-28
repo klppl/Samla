@@ -25,7 +25,7 @@
             {{ post.content | inject_permalink(rel_url(post.url)) | safe }}
         </div>
         {% elif post.type == 'bookmarks' %}
-        {# Bookmarks content (the why/description) #}
+        {# Bookmarks content (the description) #}
         {% if post.content %}
         <div class="bookmark-commentary">
             {{ post.content|safe }}
@@ -48,9 +48,6 @@
 
     {% if post.type == 'bookmarks' %}
     <!-- Removed redundant bookmark buttons as per new design -->
-    {% if post.via %}
-    <div class="via">{{ i18n.via|default('Via') }}: {{ post.via }}</div>
-    {% endif %}
     {% endif %}
 </article>
 <hr class="post-divider">

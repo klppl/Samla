@@ -6,9 +6,8 @@ category:
 emoji: "🔖" 
 shortname: 
 link: 
-via: 
-why: 
-draft: true
+draft: false
+hide_from_home: false
 ---
 
 Write your commentary here...

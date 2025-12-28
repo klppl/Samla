@@ -7,7 +7,8 @@ emoji: "🎬"
 shortname: 
 rating: 5
 watched_on: {date}
-draft: true
+draft: false
+hide_from_home: false
 ---
 
 Write your review here...

@@ -5,7 +5,8 @@ tags: []
 category: 
 emoji: "📝" 
 shortname: 
-draft: true
+draft: false
+hide_from_home: false
 ---
 
 Write your content here...

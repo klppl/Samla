@@ -66,6 +66,7 @@ class ContentItem:
     tags: List[str] = field(default_factory=list)
     category: Optional[str] = None
     shortname: Optional[str] = None
+    hide_from_home: bool = False
     
     # Defaults (can be overridden by subclasses)
     default_icon = "\U0001F4AC" # 💬
@@ -136,8 +137,6 @@ class Review(ContentItem):
 @dataclass
 class Bookmark(ContentItem):
     link: Optional[str] = None
-    via: Optional[str] = None
-    why: Optional[str] = None
     domain: Optional[str] = None
 
     @classmethod
@@ -153,9 +152,6 @@ class Bookmark(ContentItem):
                 kwargs['domain'] = domain
             except:
                 pass
-        
-        if 'why_bookmarked' in frontmatter and 'why' not in kwargs:
-             kwargs['why'] = frontmatter['why_bookmarked']
              
         return kwargs
 

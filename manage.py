@@ -53,9 +53,14 @@ def command_serve(args):
         # Define build function to run on changes
         def rebuild():
             print("Detected change, rebuilding...")
-            builder = SiteBuilder(include_drafts=True) # Always include drafts in dev
+            builder = SiteBuilder(include_drafts=args.drafts) 
             builder.build()
             print("Rebuild complete.")
+
+        # Perform initial build to ensure state matches flags
+        print("Performing initial build...")
+        initial_builder = SiteBuilder(include_drafts=args.drafts)
+        initial_builder.build()
 
         # Watch patterns
         server.watch('content/', rebuild)
@@ -209,6 +214,7 @@ def main():
 
     parser_serve = subparsers.add_parser("serve", help="Serve the site locally")
     parser_serve.add_argument("--port", type=int, default=8000, help="Port to serve on")
+    parser_serve.add_argument("--drafts", action="store_true", help="Include draft posts")
     
     # New command
     parser_new = subparsers.add_parser("new", help="Create a new post")
@@ -224,9 +230,38 @@ def main():
     except ImportError:
         pass
 
+    # Load Plugins
+    plugins_dir = Path("plugins")
+    if plugins_dir.exists():
+        import importlib.util
+        
+        # Add current dir to path so we can import plugins
+        if str(Path.cwd()) not in sys.path:
+            sys.path.append(str(Path.cwd()))
+
+        for plugin_file in plugins_dir.glob("*.py"):
+            if plugin_file.name == "__init__.py":
+                continue
+                
+            try:
+                module_name = f"plugins.{plugin_file.stem}"
+                spec = importlib.util.spec_from_file_location(module_name, plugin_file)
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    sys.modules[module_name] = module
+                    spec.loader.exec_module(module)
+                    
+                    if hasattr(module, 'register_commands'):
+                        module.register_commands(subparsers)
+                        print(f"Loaded plugin: {plugin_file.stem}")
+            except Exception as e:
+                print(f"Error loading plugin {plugin_file.name}: {e}")
+
     args = parser.parse_args()
     
-    if args.command == "build":
+    if hasattr(args, 'func'):
+        args.func(args)
+    elif args.command == "build":
         command_build(args)
     elif args.command == "serve":
         command_serve(args)

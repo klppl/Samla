@@ -178,6 +178,8 @@ class SiteBuilder:
                 continue
             if post.type == 'bookmarks' and not self.config.features.get('bookmarks_in_index', True):
                 continue
+            if post.hide_from_home:
+                continue
             index_posts.append(post)
             
         self._render_index(index_posts)
