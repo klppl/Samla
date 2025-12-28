@@ -1,10 +1,10 @@
 # Custom Static Site Generator
 
-A flexible, Python-based static site generator customized for personal websites. It supports multiple content types (posts, micro-blog, reviews, bookmarks), responsive design, and performance optimizations.
-
-### DEMO: [https://klippel.se](https://klippel.se)
+# [DEMO: https://klippel.se](https://klippel.se)
 
 ![Screenshot](screenshot.png)
+
+A flexible, Python-based static site generator customized for personal websites. It supports multiple content types (posts, micro-blog, reviews, bookmarks), responsive design, and performance optimizations.
 
 ## Table of Contents
 - [Features](#features)
@@ -165,3 +165,37 @@ See `wrangler.toml` for configuration details like `compatibility_date` and `ass
 -   **Live Reload**: `manage.py serve` uses `livereload` to watch for changes and automatically rebuild.
 -   **Caching**: Processed Markdown is cached in `.cache/markdown_cache.json`. Use the `--no-cache` flag to force a full rebuild.
 -   **Search Index**: The search index `public/search.json` is automatically regenerated on every build.
+
+## 🔌 Plugins
+
+The generator supports a plugin system integrated into the CLI. Scripts placed in the `plugins/` directory are automatically loaded and can register their own commands.
+
+### Linkding Importer
+Imports bookmarks from a Linkding instance into `content/bookmarks/`.
+
+**Usage:**
+```bash
+python3 manage.py import-linkding \
+  --url "https://linkding.yourdomain.com" \
+  --token "YOUR_API_TOKEN" \
+  --tag "shared" \
+  --limit 10
+  --limit 10
+```
+
+**Features:**
+- Fetches bookmarks by tag
+- Uses `archetypes/bookmarks.md` for consistent formatting
+- Safely escapes content for YAML frontmatter
+- Skips already imported bookmarks (by slug)
+
+## 📊 Analytics
+
+To add web analytics (Google Analytics, Plausible, Umami, etc.) to your site:
+
+1.  Open `templates/partials/analytics.html`.
+2.  Paste your tracking code snippet (HTML/JS) directly into the file.
+3.  Rebuild the site.
+
+The snippet will be automatically injected into the `<head>` of every page.
+
