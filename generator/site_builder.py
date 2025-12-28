@@ -79,11 +79,6 @@ class SiteBuilder:
 
         date_config = self.locale_data['date']
         
-        # Determine format string
-        # If the argument matches a key in date config (e.g. 'short_format'), use that
-        # Otherwise treat it as a python strftime string? Or just default.
-        # Let's keep it simple: defaults to 'format' key in yaml.
-        
         fmt_template = date_config.get(format_str, date_config.get('format', "{day} {month} {year}"))
         
         # Prepare replacements
@@ -114,20 +109,10 @@ class SiteBuilder:
     def build(self):
         print(f"Building site '{self.config.title}'...")
         
-        # 0. Clean Output Directory
         self.clean()
-        
-        # 1. Prepare Output Directory
         self._prepare_output_directory()
         
         
-        self._prepare_output_directory()
-        
-        
-        # Load content (Reloading here to ensure fresh state if called multiple times, 
-        # but we need to make sure we use the one with context)
-        # Actually self.content_loader is already initialized with context in __init__.
-        # We can just use self.content_loader.
         
         posts = self.content_loader.load_content()
         
@@ -169,11 +154,10 @@ class SiteBuilder:
         self.shortname_map = {p.shortname: p for p in posts if p.shortname}
 
 
-        # 3. Render Individual Posts
         for post in posts:
             self._render_post(post)
             
-        # 4. Render Index (Home Stream)
+        # Render Index (Home Stream)
         # Filter posts based on feature flags
         index_posts = []
         for post in posts:
@@ -185,38 +169,28 @@ class SiteBuilder:
             
         self._render_index(index_posts)
         
-        # 5. Render Sections
         self._render_sections(posts)
 
-        # 6. Render Taxonomies
         if self.config.features.get('tags'):
             self._render_tags(posts)
         
         if self.config.features.get('categories'):
             self._render_categories(posts)
         
-        # 7. Generate RSS
         if self.config.features.get('rss'):
             self._generate_rss(posts)
             
-        # 8. Generate Sitemap
         self._generate_sitemap(posts)
         
-        # 9. Copy Static Assets
         self._copy_static_assets()
         self._copy_content_assets()
         
-        # 10. Generate 404 Page
         self._generate_404()
         
-        # 11. Generate Search Index
-
         self._generate_search_index(posts)
         
-        # 13. Generate Search Page
         self._generate_search_page()
         
-        # 14. Generate humans.txt
         self._generate_humans_txt()
         
         print("Build complete.")
@@ -675,9 +649,7 @@ class SiteBuilder:
             context['rel_url'] = rel_url
         
         html = self.renderer.render(template_name, context)
-        # 1. Resolve internal links
         html = self._resolve_internal_links(html, current_url)
-        # 2. Process other links (rel/ref)
         return self._process_links(html)
 
     def _process_links(self, html: str) -> str:

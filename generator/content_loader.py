@@ -41,7 +41,6 @@ class ContentLoader:
             for item in os.listdir(section_path):
                 item_path = section_path / item
                 
-                # Case 1: Directory with post.md (e.g. content/posts/hello-world/post.md)
                 if item_path.is_dir():
                     post_file = item_path / 'post.md'
                     if post_file.exists():
@@ -50,7 +49,6 @@ class ContentLoader:
                         if post:
                             posts.append(post)
                             
-                # Case 2: Direct markdown file (e.g. content/posts/hello-world.md)
                 elif item_path.is_file() and item.endswith('.md'):
                     slug = item[:-3] # remove .md
                     post = self._parse_post(item_path, section, slug)
@@ -70,22 +68,18 @@ class ContentLoader:
         try:
             mtime = file_path.stat().st_mtime
             
-            # 1. Try Cache
             cached_data = self.cache_manager.get(str(file_path), mtime)
             
             if cached_data:
                 html_content = cached_data['html']
                 frontmatter = cached_data['frontmatter']
             else:
-                # 2. Parse & Process (Cache Miss)
                 post_data = fm.load(file_path)
                 content_raw = post_data.content
                 frontmatter = post_data.metadata
                 
-                # 1. Process Shortcodes FIRST
                 content_with_shortcodes = self.shortcode_manager.process(content_raw)
                 
-                # 2. Pre-process with Jinja2 if env is available
                 if self.jinja_env and self.site_context:
                     try:
                         # Create a template from the content with shortcodes already expanded
@@ -114,7 +108,7 @@ class ContentLoader:
                     'frontmatter': frontmatter_serializable
                 })
             
-            # --- Common Post-Processing (After Cache or Parse) ---
+            
             
             # Draft check
             if frontmatter.get('draft') and not self.include_drafts:

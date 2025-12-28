@@ -66,14 +66,10 @@ class ContentItem:
         Factory method to create an instance from frontmatter and standard args.
         Automatically maps frontmatter keys to dataclass fields.
         """
-        # Start with base arguments
         init_kwargs = kwargs.copy()
         
-        # Add frontmatter itself
         init_kwargs['frontmatter'] = frontmatter
         
-        # Inspect the class to find what extra fields it supports
-        # We use dataclasses.fields to get all fields including inherited ones
         valid_field_names = {f.name for f in fields(cls)}
         
         for field_name in valid_field_names:
@@ -141,8 +137,8 @@ class Bookmark(ContentItem):
             except:
                 pass
         
-        # Mapping variations
         if 'why_bookmarked' in frontmatter and 'why' not in kwargs:
              kwargs['why'] = frontmatter['why_bookmarked']
              
         return kwargs
+
