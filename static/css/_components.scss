@@ -197,3 +197,14 @@ blockquote {
         }
     }
 }
+
+/* Single Post Layout Spacing Fix */
+.post-single {
+    header {
+        margin-bottom: 2rem;
+    }
+    
+    .content > :first-child {
+        margin-top: 0;
+    }
+}
