@@ -62,14 +62,7 @@
             {% block content %}{% endblock %}
         </main>
 
-        <footer class="site-footer">
-            <p>{{ site.features.footer_message or "Everything fades. Entropy is inevitable." }}</p>
-            {% if site.last_updated %}
-            <p class="last-updated">Last updated: {{ site.last_updated.strftime('%Y-%m-%d') }}</p>
-            {% endif %}
-            <p><a href="{{ rel_url('/rss.xml') }}">RSS Feed</a> | <a href="{{ rel_url('/sitemap.xml') }}">Sitemap</a>
-            </p>
-        </footer>
+        {% include 'partials/footer.html' %}
     </div>
 </body>
 

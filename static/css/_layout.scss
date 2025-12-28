@@ -89,6 +89,40 @@
     text-align: center;
     color: var(--secondary-color);
     font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Space between lines */
+}
+
+.footer-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Space between items in a line */
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+}
+
+.footer-line.meta {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.site-footer .separator {
+    opacity: 0.5;
+    font-weight: normal;
+}
+
+.site-footer a {
+    color: inherit;
+    border: none;
+
+    &:hover {
+        color: var(--primary-color);
+        background: none;
+    }
 }
 
 /* Pagination */

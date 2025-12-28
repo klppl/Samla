@@ -1,0 +1,17 @@
+<footer class="site-footer">
+    <div class="footer-line">
+        <span>{{ site.features.footer_message or "Everything fades. Entropy is inevitable." }}</span>
+        <span class="separator">/</span>
+        <span>Constructed by <a href="https://github.com/klppl/samla">Samla</a></span>
+    </div>
+
+    <div class="footer-line meta">
+        <a href="{{ rel_url('/rss.xml') }}">RSS</a>
+        <span class="separator">·</span>
+        <a href="{{ rel_url('/sitemap.xml') }}">Sitemap</a>
+        {% if site.last_updated %}
+        <span class="separator">·</span>
+        <span class="updated">Updated: {{ site.last_updated.strftime('%Y-%m-%d') }}</span>
+        {% endif %}
+    </div>
+</footer>
