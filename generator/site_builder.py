@@ -18,6 +18,13 @@ from .models import ContentItem, CONTENT_TYPES
 from .data_loader import DataLoader
 
 class SiteBuilder:
+    """
+    Orchestrates the entire static site generation process.
+    
+    This class ties together configuration, content loading, rendering, and asset management
+    to produce the final static output. It follows a sequential build pipeline:
+    Clean -> Prepare -> Load Content -> Render Posts -> Render Indices -> Generate Feeds/Sitemaps.
+    """
     def __init__(self, config_path: str = 'config.yaml', include_drafts: bool = False):
         self.config = load_config(config_path)
         
@@ -69,6 +76,8 @@ class SiteBuilder:
     def _localedate_filter(self, date_obj, format_str='format'):
         """
         Jinja2 filter to format dates using the loaded locale.
+        
+        This allows for locale-specific date formatting (e.g. "1st January" vs "January 1").
         Usage: {{ post.date | localedate }} or {{ post.date | localedate('short') }}
         """
         if not date_obj:
@@ -107,6 +116,10 @@ class SiteBuilder:
             shutil.rmtree(self.output_dir)
 
     def build(self):
+        """
+        Executes the full build process.
+        This is the main entry point for the static site generation.
+        """
         print(f"Building site '{self.config.title}'...")
         
         self.clean()

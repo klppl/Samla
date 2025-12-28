@@ -3,6 +3,8 @@ from datetime import datetime
 from typing import List, Optional, Dict, Any
 
 # Registry for content types
+# This registry pattern allows for easy extension of content types without modifying the core loader logic.
+# New content types can be added by decorating a class with @register_content_type('type_name').
 CONTENT_TYPES = {}
 
 def register_content_type(name):
@@ -19,6 +21,14 @@ class MenuLink:
 
 @dataclass
 class SiteConfig:
+    """
+    Global configuration for the static site.
+    
+    Attributes:
+        title (str): The main title of the website.
+        base_url (str): The specific URL where the site will be hosted. 
+                        Used for generating canonical URLs and absolute links.
+    """
     title: str
     subtitle: str
     base_url: str
@@ -38,6 +48,13 @@ class SiteConfig:
 
 @dataclass
 class ContentItem:
+    """
+    Base class for all content items (posts, pages, reviews, etc.).
+    
+    This class handles standard metadata found in all Markdown frontmatter,
+    such as title, date, and tags. Subclasses should extend this to add
+    type-specific fields.
+    """
     title: str
     date: datetime
     slug: str

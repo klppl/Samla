@@ -16,6 +16,15 @@ import frontmatter as fm
 
 
 class ContentLoader:
+    """
+    Handles the loading, parsing, and processing of Markdown content files.
+    
+    This class is responsible for:
+    1. Parsing YAML frontmatter.
+    2. Processing shortcodes.
+    3. Rendering Jinja2 templates embedded in Markdown.
+    4. Caching results to speed up subsequent builds.
+    """
     def __init__(self, content_dir: str, include_drafts: bool = False, jinja_env=None, site_context=None, url_slugs=None):
         self.content_dir = Path(content_dir)
         self.include_drafts = include_drafts
@@ -26,6 +35,12 @@ class ContentLoader:
         self.url_slugs = url_slugs or {}
 
     def load_content(self) -> List[ContentItem]:
+        """
+        Traverses the content directory and loads all valid content items.
+        
+        Returns:
+            List[ContentItem]: A list of parsed content items, sorted by date (newest first).
+        """
 
         posts = []
         # Walk through top-level directories which are 'sections' or 'types'
@@ -68,6 +83,9 @@ class ContentLoader:
         try:
             mtime = file_path.stat().st_mtime
             
+            # Check cache with file modification time.
+            # If the file hasn't changed since the last build, we return the cached HTML
+            # to avoid expensive re-parsing of Markdown and Shortcodes.
             cached_data = self.cache_manager.get(str(file_path), mtime)
             
             if cached_data:
