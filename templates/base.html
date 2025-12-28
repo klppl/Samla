@@ -35,6 +35,9 @@
         content="{% if post %}{{ post.frontmatter.description or post.content | striptags | truncate(160) }}{% else %}{{ site.subtitle }}{% endif %}" />
     <meta name="twitter:image"
         content="{{ site.base_url }}{% if post and post.frontmatter and post.frontmatter.image %}{{ post.frontmatter.image }}{% else %}{{ site.social.default_image }}{% endif %}" />
+
+    <!-- Analytics Injection -->
+    {% include 'partials/analytics.html' ignore missing %}
 </head>
 
 <body>
