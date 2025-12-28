@@ -5,7 +5,7 @@ tags: [demo, example]
 category: bookmarks
 emoji: 🔖
 link: "https://example.com"
-via: "Internet"
+via: 
 why: "It serves as a great example."
 draft: false
 ---
