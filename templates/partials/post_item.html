@@ -1,0 +1,56 @@
+<article class="post-item type-{{ post.type }}" data-date="{{ post.date.strftime('%Y-%m-%d') }}"
+    style="--post-icon: '{{ post.icon }}'">
+    <header class="post-header">
+        {% include "partials/meta.html" %}
+
+        {% if post.type == 'bookmarks' %}
+        <h2 class="post-title bookmark-title">
+            <a href="{{ post.link }}" target="_blank" rel="noopener">{{
+                post.title }}</a>
+            {% if post.domain %}<span class="bookmark-domain">[{{ post.domain }}]</span>{% endif %}
+        </h2>
+        {% elif post.type == 'reviews' %}
+        <h2 class="post-title">
+            <a href="{{ rel_url(post.url) }}">{{ post.title }}</a>
+            <span class="review-stars" title="{{ post.rating }}/10">{{ post.star_string }}</span>
+        </h2>
+        {% elif post.type != 'micro' or site.features.micro_titles %}
+        <h2 class="post-title"><a href="{{ rel_url(post.url) }}">{{ post.title }}</a></h2>
+        {% endif %}
+    </header>
+
+    <div class="post-content">
+        {% if post.type == 'micro' %}
+        <div class="micro-post-content">
+            {{ post.content | inject_permalink(rel_url(post.url)) | safe }}
+        </div>
+        {% elif post.type == 'bookmarks' %}
+        {# Bookmarks content (the why/description) #}
+        {% if post.content %}
+        <div class="bookmark-commentary">
+            {{ post.content|safe }}
+        </div>
+        {% endif %}
+        {% else %}
+        {# Semantic preview for others #}
+        <p class="preview-text">
+            {{ post.content | striptags | truncate(160) }}
+            <a href="{{ rel_url(post.url) }}" class="read-more">{{ i18n.read_more|default('Read more') }} &rarr;</a>
+        </p>
+        {% endif %}
+    </div>
+
+    {% if post.type == 'reviews' and post.frontmatter.watched_on %}
+    <div class="review-meta-block">
+        <span class="watched">{{ i18n.watched_on|default('Watched') }}: {{ post.frontmatter.watched_on }}</span>
+    </div>
+    {% endif %}
+
+    {% if post.type == 'bookmarks' %}
+    <!-- Removed redundant bookmark buttons as per new design -->
+    {% if post.via %}
+    <div class="via">{{ i18n.via|default('Via') }}: {{ post.via }}</div>
+    {% endif %}
+    {% endif %}
+</article>
+<hr class="post-divider">

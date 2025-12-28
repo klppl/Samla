@@ -1,0 +1,83 @@
+# Template Localization File (English Defaults)
+# Copy this file to e.g. 'de.yaml' to create a German translation.
+
+strings:
+  # General UI
+  read_more: "Read more"
+  posted_on: "Posted on"
+  page: "Page"
+  of: "of"
+  next: "Next"
+  prev: "Previous"
+  search: "Search"
+  search_placeholder: "Search for content..."
+  no_results: "No results found."
+  related_posts: "Related Posts"
+  home: "Home"
+  tags: "Tags"
+  categories: "Categories"
+  
+  # Content Types (Badges/Labels)
+  posts: "Posts"
+  micro: "Micro"
+  reviews: "Reviews"
+  bookmarks: "Bookmarks"
+  
+  # Review specific
+  rating: "Rating"
+  watched_on: "Watched"
+  verdict: "Verdict"
+  
+  # Bookmark specific
+  link: "Link"
+  via: "Via"
+  why: "Why?"
+
+date:
+  # Python strftime format pattern or custom placeholders {day}, {month}, {year}, {weekday}
+  format: "{day} {month} {year}"
+  
+  months:
+    - "January"
+    - "February"
+    - "March"
+    - "April"
+    - "May"
+    - "June"
+    - "July"
+    - "August"
+    - "September"
+    - "October"
+    - "November"
+    - "December"
+    
+  short_months:
+    - "Jan"
+    - "Feb"
+    - "Mar"
+    - "Apr"
+    - "May"
+    - "Jun"
+    - "Jul"
+    - "Aug"
+    - "Sep"
+    - "Oct"
+    - "Nov"
+    - "Dec"
+    
+  days:
+    - "Monday"
+    - "Tuesday"
+    - "Wednesday"
+    - "Thursday"
+    - "Friday"
+    - "Saturday"
+    - "Sunday"
+
+slugs:
+  # Map internal content types to URL segments
+  # e.g. content/posts/ -> public/posts/
+  posts: "posts"
+  micro: "micro"
+  reviews: "reviews"
+  bookmarks: "bookmarks"

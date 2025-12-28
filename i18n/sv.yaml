@@ -1,0 +1,75 @@
+# Swedish Localization
+strings:
+  # General
+  read_more: "Läs mer"
+  posted_on: "Publicerad"
+  page: "Sida"
+  of: "av"
+  next: "Nästa"
+  prev: "Föregående"
+  search: "Sök"
+  search_placeholder: "Sök efter innehåll..."
+  no_results: "Inga resultat hittades."
+  related_posts: "Relaterade inlägg"
+  home: "Hem"
+  tags: "Taggar"
+  categories: "Kategorier"
+  
+  # Content Types
+  posts: "Inlägg"
+  micro: "Notiser"
+  reviews: "Recensioner"
+  bookmarks: "Bokmärken"
+  
+  # Review specific
+  rating: "Betyg"
+  watched_on: "Sedd"
+  verdict: "Omdöme"
+  
+  # Bookmark specific
+  link: "Länk"
+  via: "Via"
+  why: "Varför?"
+
+date:
+  format: "{day} {month} {year}"
+  months:
+    - "januari"
+    - "februari"
+    - "mars"
+    - "april"
+    - "maj"
+    - "juni"
+    - "juli"
+    - "augusti"
+    - "september"
+    - "oktober"
+    - "november"
+    - "december"
+  short_months:
+    - "jan"
+    - "feb"
+    - "mar"
+    - "apr"
+    - "maj"
+    - "jun"
+    - "jul"
+    - "aug"
+    - "sep"
+    - "okt"
+    - "nov"
+    - "dec"
+  days:
+    - "måndag"
+    - "tisdag"
+    - "onsdag"
+    - "torsdag"
+    - "fredag"
+    - "lördag"
+    - "söndag"
+
+slugs:
+  posts: "inlagg"
+  micro: "notiser"
+  reviews: "recensioner"
+  bookmarks: "bokmarken"

@@ -1,0 +1,56 @@
+site:
+  title: "Samla Demo"
+  subtitle: "A simple static site generator"
+  base_url: "https://example.com"
+  timezone: "UTC"
+  language: "en"
+  background_image: "/static/images/grid.png"
+
+social:
+  twitter_site: "@example"
+  default_image: "/static/images/grid.png"
+
+# Remember to update i18n/sv.yaml if you change this
+menu:
+  - name: Start
+    url: /
+    icon: "🏠"
+  - name: Posts
+    url: /posts/
+    icon: "📰"
+  - name: Micro
+    url: /micro/
+    icon: "💬"
+  - name: Reviews
+    url: /reviews/
+    icon: "💯"
+  - name: Search
+    url: /search/
+    icon: "🔍"
+
+
+content:
+  input_dir: content
+  output_dir: public
+  posts_per_page: 20
+
+features:
+  tags: true
+  categories: true
+  micro_titles: false
+  reviews_in_index: true
+  bookmarks_in_index: true
+  show_tags_in_feed: false
+  show_dates_relative: false
+  rss: true
+
+humans:
+  who:
+    - role: "Maintainer"
+      name: "Jane Doe"
+      site: "https://example.com"
+      github: "https://github.com/example"
+      location: "Internet"
+  tech_stack:
+    - "Built with Python and Love."
+    - "Hosted on the Cloud."

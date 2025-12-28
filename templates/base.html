@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}{% if post %} - {{ post.title }}{% endif %}</title>
+    <link rel="stylesheet" href="{{ rel_url('/static/css/style.css') }}">
+
+    <script src="{{ rel_url('/static/js/theme.js') }}"></script>
+
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}" />
+    {% endif %}
+
+
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed"
+        href="{{ rel_url('/rss.xml') }}" />
+
+    <!-- Social Meta Tags -->
+    <meta property="og:site_name" content="{{ site.title }}" />
+    <meta property="og:type" content="{% if post %}article{% else %}website{% endif %}" />
+    <meta property="og:title" content="{% if post %}{{ post.title }}{% else %}{{ site.title }}{% endif %}" />
+    <meta property="og:description"
+        content="{% if post %}{{ post.frontmatter.description or post.content | striptags | truncate(160) }}{% else %}{{ site.subtitle }}{% endif %}" />
+    <meta property="og:url"
+        content="{{ canonical_url or site.base_url }}{% if not canonical_url %}{% if post %}{{ post.url }}{% else %}/{% endif %}{% endif %}" />
+    <meta property="og:image"
+        content="{{ site.base_url }}{% if post and post.frontmatter and post.frontmatter.image %}{{ post.frontmatter.image }}{% else %}{{ site.social.default_image }}{% endif %}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ site.social.twitter_site }}" />
+    <meta name="twitter:title" content="{% if post %}{{ post.title }}{% else %}{{ site.title }}{% endif %}" />
+    <meta name="twitter:description"
+        content="{% if post %}{{ post.frontmatter.description or post.content | striptags | truncate(160) }}{% else %}{{ site.subtitle }}{% endif %}" />
+    <meta name="twitter:image"
+        content="{{ site.base_url }}{% if post and post.frontmatter and post.frontmatter.image %}{{ post.frontmatter.image }}{% else %}{{ site.social.default_image }}{% endif %}" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="site-header">
+            <nav class="site-nav">
+                {% for item in site.menu %}
+                <a href="{{ rel_url(item.url) }}" class="nav-link">
+                    {% if item.icon %}
+                    <span class="nav-icon">{{ item.icon }}</span>
+                    {% endif %}
+                    <span class="nav-text">{{ item.name }}</span>
+                </a>
+                {% endfor %}
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+
+            </nav>
+            <div class="site-branding">
+                <h1 class="site-title"><a href="{{ rel_url('/') }}">{{ site.title }}</a></h1>
+                <p class="site-subtitle">{{ site.subtitle }}</p>
+            </div>
+        </header>
+
+        <main class="site-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <p>{{ site.features.footer_message or "Everything fades. Entropy is inevitable." }}</p>
+            {% if site.last_updated %}
+            <p class="last-updated">Last updated: {{ site.last_updated.strftime('%Y-%m-%d') }}</p>
+            {% endif %}
+            <p><a href="{{ rel_url('/rss.xml') }}">RSS Feed</a> | <a href="{{ rel_url('/sitemap.xml') }}">Sitemap</a>
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>

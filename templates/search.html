@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="page-single" style="max-width: 800px; margin: 0 auto;">
+    <header>
+        <h1>Search</h1>
+    </header>
+
+    <div class="search-container" style="margin-bottom: 3rem;">
+        <input type="text" id="search-input" placeholder="Type to search..."
+            style="width: 100%; padding: 15px; font-size: 1.2rem; background: var(--bg-color); color: var(--font-color); border: 2px solid var(--border-color); border-radius: 4px;">
+    </div>
+
+    <div id="search-results">
+        <!-- Results will appear here -->
+    </div>
+</article>
+
+<script src="{{ rel_url('/static/js/search.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,7 @@
+<span class="date">
+    {% if site.features.show_dates_relative %}
+    {{ post.date|relative_time }}
+    {% else %}
+    {{ post.date|localedate }}
+    {% endif %}
+</span>

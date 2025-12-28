@@ -1,0 +1,25 @@
+{% if pagination and pagination.total_pages > 1 %}
+<nav class="pagination">
+    {% if pagination.has_prev %}
+    <a href="{{ rel_url(pagination.prev_url) }}" class="prev">&larr;</a>
+    {% endif %}
+
+    <div class="page-links">
+        {% for page in pagination.pages %}
+        {% if page.num %}
+        {% if page.current %}
+        <span class="page-link active">{{ page.num }}</span>
+        {% else %}
+        <a href="{{ rel_url(page.url) }}" class="page-link">{{ page.num }}</a>
+        {% endif %}
+        {% else %}
+        <span class="page-gap">...</span>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if pagination.has_next %}
+    <a href="{{ rel_url(pagination.next_url) }}" class="next">&rarr;</a>
+    {% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,18 @@
+<div class="meta-line">
+    <span class="type-badge">
+        <span class="type-icon">{{ post.icon }}</span>
+        <span class="type-label">
+            {{ i18n[post.type]|default(post.type|capitalize) }}
+        </span>
+    </span>
+    <span class="meta-date-group">
+        <span class="meta-date-group">
+            &middot; {% include "partials/date.html" %}
+        </span>
+    </span>
+
+
+    {% if site.features.show_tags_in_feed and post.tags %}
+    &middot; <span class="tags">{% for tag in post.tags %}#{{ tag }} {% endfor %}</span>
+    {% endif %}
+</div>

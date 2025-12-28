@@ -1,0 +1,8 @@
+/* TEAM */
+Author: {{ site.title }}
+Twitter: {{ site.social.twitter_site }}
+Site: {{ site.base_url }}
+
+/* SITE */
+Last update: {{ now }}
+Software: Custom Python Static Site Generator

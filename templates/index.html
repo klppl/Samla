@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="stream">
+    {% for post in posts %}
+    {% include "partials/post_item.html" %}
+    {% endfor %}
+</div>
+{% include "partials/pagination.html" %}
+{% endblock %}

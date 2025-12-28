@@ -1,0 +1,31 @@
+:root {
+    --bg-color: #222225;
+    --font-color: #e8e9ed;
+    --invert-font-color: #222225;
+    --primary-color: #62c4ff;
+    /* Terminal Blue */
+    --secondary-color: #727578;
+    /* Muted Grey */
+    --card-header-bg: #323235;
+    /* Slightly lighter than BG */
+    --border-color: #444;
+    --heading-color: #fff;
+    --code-bg: #333;
+    --pre-bg: #111;
+    --global-font-size: 14px;
+    --global-line-height: 1.5;
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --font-color: #222225;
+    --invert-font-color: #ffffff;
+    --primary-color: #0066cc;
+    /* Darker blue for light mode */
+    --secondary-color: #666;
+    --card-header-bg: #f8f8f8;
+    --border-color: #ddd;
+    --heading-color: #111;
+    --code-bg: #f5f5f5;
+    --pre-bg: #f0f0f0;
+}

@@ -1,0 +1,199 @@
+/* =========================================
+   TIMELINE & CARD LAYOUT
+   ========================================= */
+
+/* Main Stream - Shifted to make room for dates on the left */
+.stream {
+    position: relative;
+    padding-left: 20px;
+    border-left: 2px solid var(--border-color);
+    margin-left: 120px;
+}
+
+/* Post Items */
+.post-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 20px;
+
+    /* Timeline Date Label (Left of line) */
+    &::before {
+        content: attr(data-date);
+        position: absolute;
+        top: 2px;
+        left: -142px;
+        /* Pull back into margin (-120 stream margin - 20 padding - 2 border) */
+        width: 100px;
+        text-align: right;
+        color: var(--secondary-color);
+        font-size: 0.75rem;
+        opacity: 0.7;
+        font-family: monospace;
+        letter-spacing: -0.5px;
+        padding-right: 15px;
+        display: block;
+        line-height: 1.5;
+    }
+
+    /* Timeline Marker (Icon on line) */
+    &::after {
+        content: var(--post-icon, '📄');
+        position: absolute;
+        top: -2px;
+        left: -32px;
+        /* Center on line (-20 pad - 2 border - 10 half icon) */
+        width: 24px;
+        height: 24px;
+        background-color: var(--bg-color);
+        /* Mask the line */
+        z-index: 10;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.4;
+        border: none;
+        border-radius: 0;
+    }
+}
+
+.read-more {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin-left: 10px;
+    border-bottom: none;
+
+    &:hover {
+        opacity: 1;
+        border-bottom: 1px dashed var(--primary-color);
+    }
+}
+
+.micro-permalink {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin-left: 0.5rem;
+    font-size: 0.9em;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+        color: var(--primary-color);
+    }
+}
+
+/* Hide redundant type badge (icon+label) in header on Desktop */
+.type-badge {
+    display: none;
+}
+
+/* Post Header (Clean) */
+.post-header {
+    margin-bottom: 1rem;
+    padding: 0;
+    border: none;
+    background: none;
+
+    /* Hide the old date inside the post content on Desktop */
+    .meta-date-group,
+    .mobile-sep {
+        display: none;
+    }
+}
+
+.post-content {
+    padding: 0;
+}
+
+/* Separators */
+hr.post-divider {
+    display: block;
+    border: 0;
+    border-bottom: 1px dashed var(--border-color);
+    margin: 3rem 0;
+    margin-left: -20px;
+}
+
+/* Components */
+code {
+    background-color: var(--code-bg);
+    padding: 2px 5px;
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+pre {
+    border: 1px solid var(--border-color);
+    background: var(--pre-bg);
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+blockquote {
+    border-left: 4px solid var(--secondary-color);
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* Bookmark & Review Specifics */
+.bookmark-domain {
+    color: var(--secondary-color);
+    font-size: 0.75em;
+    font-weight: normal;
+    margin-left: 10px;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+}
+
+.bookmark-commentary {
+    border-left: 2px solid var(--primary-color);
+    padding-left: 10px;
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--font-color);
+}
+
+.review-stars {
+    color: #f1c40f;
+    margin-left: 10px;
+    font-size: 0.8em;
+}
+
+.review-meta-block {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 1px dashed var(--secondary-color);
+    display: inline-block;
+}
+
+/* Mobile Tweak - Hide timeline sidebar, put dates back inline */
+@media (max-width: 650px) {
+    .stream {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .post-item {
+        padding-left: 0;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    /* Restore header icon and label on mobile since timeline is gone */
+    .type-badge {
+        display: inline;
+    }
+
+    .post-header {
+
+        .meta-date-group,
+        .mobile-sep {
+            display: inline;
+        }
+    }
+}

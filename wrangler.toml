@@ -1,0 +1,6 @@
+name = "samla-demo"
+compatibility_date = "2024-05-21"
+assets = { directory = "./public" }
+
+[vars]
+PYTHON_VERSION = "3.13"

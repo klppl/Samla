@@ -1,0 +1,7 @@
+{
+    "name": "samla-demo",
+    "version": "1.0.0",
+    "devDependencies": {
+        "wrangler": "latest"
+    }
+}

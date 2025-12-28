@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage -->
+    <url>
+        <loc>{{ site.base_url.rstrip('/') }}/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <!-- Sections -->
+    <url>
+        <loc>{{ site.base_url.rstrip('/') }}/posts/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ site.base_url.rstrip('/') }}/micro/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- Posts -->
+    {% for post in posts %}
+    <url>
+        <loc>{{ site.base_url.rstrip('/') }}{{ post.url }}</loc>
+        <lastmod>{{ post.date | date("%Y-%m-%d") }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    {% endfor %}
+</urlset>

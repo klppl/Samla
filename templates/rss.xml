@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+    <title>{{ site.title }}</title>
+    <link>{{ site.base_url.rstrip('/') }}/</link>
+    <description>{{ site.subtitle }}</description>
+    <lastBuildDate>{{ now }}</lastBuildDate>
+    <generator>Python SSG</generator>
+    {% for post in posts[:20] %}
+    <item>
+        <title>{{ post.title }}</title>
+        <link>{{ site.base_url.rstrip('/') }}{{ post.url }}</link>
+        <guid>{{ site.base_url.rstrip('/') }}{{ post.url }}</guid>
+        <pubDate>{{ post.date.strftime("%a, %d %b %Y %H:%M:%S +0000") }}</pubDate>
+        <description>{{ post.content | striptags | truncate(300) }}</description>
+        <content:encoded><![CDATA[{{ post.content }}]]></content:encoded>
+    </item>
+    {% endfor %}
+</channel>
+</rss>
