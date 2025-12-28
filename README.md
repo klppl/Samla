@@ -2,10 +2,6 @@
 
 A flexible, Python-based static site generator customized for personal websites. It supports multiple content types (posts, micro-blog, reviews, bookmarks), responsive design, and performance optimizations.
 
-### DEMO: [https://klippel.se](https://klippel.se)
-
-![Screenshot](screenshot.png)
-
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)

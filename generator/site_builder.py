@@ -441,10 +441,16 @@ class SiteBuilder:
             section_dir.mkdir(parents=True, exist_ok=True)
             
             current_url = f"/{url_section}/"
+
+            # Translate Title
+            strings = self.locale_data.get('strings', {})
+            # Try to find specific content type translation, fall back to capitalized name
+            title = strings.get(section_name, section_name.capitalize())
+
             html = self._render_template('section.html', {
                 'site': self.config,
                 'posts': section_posts,
-                'title': section_name.capitalize(),
+                'title': title,
                 'section': section_name,
                 'canonical_url': f"{self.config.base_url}{current_url}"
             }, current_url=current_url)
