@@ -55,7 +55,12 @@ def command_import_linkding(args):
             print(f"Response Body: {response.text}")
             response.raise_for_status()
             
-        data = response.json()
+        try:
+            data = response.json()
+        except Exception as e:
+            print(f"Failed to decode JSON. Status: {response.status_code}")
+            print(f"Response Content: {response.text}")
+            raise e
         
         results = data.get('results', [])
         print(f"Found {len(results)} bookmarks.")
