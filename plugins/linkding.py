@@ -44,8 +44,13 @@ def command_import_linkding(args):
         archetype_template = f.read()
 
     try:
-        response = requests.get(f"{args.url}/api/bookmarks/", headers=headers, params=params)
-        response.raise_for_status()
+        response = requests.get(f"{args.url.rstrip('/')}/api/bookmarks/", headers=headers, params=params)
+        
+        if response.status_code != 200:
+            print(f"Error Code: {response.status_code}")
+            print(f"Response Body: {response.text}")
+            response.raise_for_status()
+            
         data = response.json()
         
         results = data.get('results', [])
