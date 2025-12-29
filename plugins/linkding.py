@@ -28,7 +28,8 @@ def command_import_linkding(args):
     
     params = {
         "q": f"#{args.tag}",
-        "limit": args.limit
+        "limit": args.limit,
+        "format": "json"
     }
     
     # Load Archetype
