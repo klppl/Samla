@@ -24,10 +24,7 @@ import json
 def command_import_linkding(args):
     print(f"Fetching bookmarks from {args.url} (tag: {args.tag})...")
     # ... (rest of function setup) ...
-    headers = {
-        "Authorization": f"Token {args.token}",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-    }
+    # headers are handled by cloudscraper
     
     params = {
         "q": f"#{args.tag}",
@@ -43,8 +40,15 @@ def command_import_linkding(args):
     with open(archetype_path, 'r', encoding='utf-8') as f:
         archetype_template = f.read()
 
+    import cloudscraper
+    scraper = cloudscraper.create_scraper()
+    
+    headers = {
+        "Authorization": f"Token {args.token}"
+    }
+
     try:
-        response = requests.get(f"{args.url.rstrip('/')}/api/bookmarks/", headers=headers, params=params)
+        response = scraper.get(f"{args.url.rstrip('/')}/api/bookmarks/", headers=headers, params=params)
         
         if response.status_code != 200:
             print(f"Error Code: {response.status_code}")
