@@ -1,5 +1,5 @@
-<article class="post-item type-{{ post.type }}" data-date="{{ post.date.strftime('%Y-%m-%d') }}"
-    style="--post-icon: '{{ post.icon }}'">
+<article class="post-item type-{{ post.type }}" data-type="{{ post.type }}"
+    data-date="{{ post.date.strftime('%Y-%m-%d') }}" style="--post-icon: '{{ post.icon }}'">
     <header class="post-header">
         {% include "partials/meta.html" %}
 

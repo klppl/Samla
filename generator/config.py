@@ -14,8 +14,16 @@ def load_config(config_path: str) -> SiteConfig:
     humans = data.get('humans', {})
     menu_data = data.get('menu', [])
     
-    menu = [MenuLink(name=item['name'], url=item['url'], icon=item.get('icon', '')) for item in menu_data]
+    menu = [MenuLink(
+        name=item['name'], 
+        url=item['url'], 
+        icon=item.get('icon', ''), 
+        type=item.get('type'),
+        break_before=item.get('break_before', False)
+    ) for item in menu_data]
     
+    frontpage_filter = data.get('frontpage_filter', {})
+
     return SiteConfig(
         title=site.get('title', 'My Site'),
         subtitle=site.get('subtitle', ''),
@@ -29,5 +37,6 @@ def load_config(config_path: str) -> SiteConfig:
         features=features,
         social=social,
         humans=humans,
-        background_image=site.get('background_image', '')
+        background_image=site.get('background_image', ''),
+        frontpage_filter=frontpage_filter
     )

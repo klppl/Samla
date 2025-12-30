@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ rel_url('/static/css/style.css') }}">
 
     <script src="{{ rel_url('/static/js/theme.js') }}"></script>
+    <script src="{{ rel_url('/static/js/toggles.js') }}" defer></script>
 
     {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}" />
@@ -45,12 +46,24 @@
         <header class="site-header">
             <nav class="site-nav">
                 {% for item in site.menu %}
-                <a href="{{ rel_url(item.url) }}" class="nav-link">
-                    {% if item.icon %}
-                    <span class="nav-icon">{{ item.icon }}</span>
+                {% if item.break_before %}
+                <div class="nav-break"></div>
+                {% endif %}
+                <div class="nav-item-wrapper">
+                    <a href="{{ rel_url(item.url) }}" class="nav-link">
+                        {% if item.icon %}
+                        <span class="nav-icon">{{ item.icon }}</span>
+                        {% endif %}
+                        <span class="nav-text">{{ item.name }}</span>
+                    </a>
+                    {% if item.type %}
+                    <button class="content-toggle" data-type="{{ item.type }}"
+                        data-default="{{ site.frontpage_filter[item.type] }}"
+                        aria-label="Toggle {{ item.name }} content" title="Toggle {{ item.name }} on/off">
+                        <span class="toggle-icon"></span>
+                    </button>
                     {% endif %}
-                    <span class="nav-text">{{ item.name }}</span>
-                </a>
+                </div>
                 {% endfor %}
                 <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
 

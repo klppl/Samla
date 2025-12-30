@@ -1,0 +1,60 @@
+/* Menu Content Toggles - Clean Box Design */
+.nav-item-wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1.0rem;
+    position: relative;
+
+    @media (max-width: 600px) {
+        margin-right: 0.8rem;
+    }
+}
+
+.content-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 0 0.5rem;
+    color: var(--secondary-color);
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+
+    .toggle-icon {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border: 1px solid var(--secondary-color);
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    /* Remove text content from pseudo-elements */
+    .toggle-icon::before {
+        content: none;
+    }
+
+    &:hover {
+        opacity: 1;
+
+        .toggle-icon {
+            border-color: var(--primary-color);
+        }
+    }
+
+    &.active {
+        opacity: 1;
+
+        .toggle-icon {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+    }
+
+    &.inactive {
+        opacity: 0.6;
+
+        .toggle-icon {
+            background-color: transparent;
+        }
+    }
+}

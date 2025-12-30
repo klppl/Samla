@@ -18,6 +18,8 @@ class MenuLink:
     name: str
     url: str
     icon: str = ""
+    type: Optional[str] = None
+    break_before: bool = False
 
 @dataclass
 class SiteConfig:
@@ -45,6 +47,7 @@ class SiteConfig:
     last_updated: Optional[datetime] = None
     files_dir: str = 'files'
     humans: Dict[str, Any] = field(default_factory=dict)
+    frontpage_filter: Dict[str, bool] = field(default_factory=dict)
 
 @dataclass
 class ContentItem:
