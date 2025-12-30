@@ -31,6 +31,17 @@
             {{ post.content|safe }}
         </div>
         {% endif %}
+        {% elif post.type == 'music' %}
+        {% if post.has_single_embed %}
+        <div class="music-embed-full">
+            {{ post.content | safe }}
+        </div>
+        {% else %}
+        <p class="preview-text">
+            {{ post.content | striptags | truncate(160) }}
+            <a href="{{ rel_url(post.url) }}" class="read-more">{{ i18n.read_more|default('Read more') }} &rarr;</a>
+        </p>
+        {% endif %}
         {% else %}
         {# Semantic preview for others #}
         <p class="preview-text">

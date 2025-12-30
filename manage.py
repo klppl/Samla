@@ -132,6 +132,10 @@ def command_new(args):
         target_dir = Path("content/bookmarks") / slug
         target_file = target_dir / "post.md"
         archetype_file = "archetypes/bookmarks.md"
+    elif post_type == 'music':
+        target_dir = Path("content/music") / slug
+        target_file = target_dir / "post.md"
+        archetype_file = "archetypes/music.md"
     else: # Default posts
         target_dir = Path("content/posts") / slug
         target_file = target_dir / "post.md"
@@ -219,7 +223,7 @@ def main():
     # New command
     parser_new = subparsers.add_parser("new", help="Create a new post")
     parser_new.add_argument("title", help="Title of the new post")
-    parser_new.add_argument("--type", "-t", choices=['posts', 'micro', 'reviews', 'bookmarks'], default='posts', help="Type of content")
+    parser_new.add_argument("--type", "-t", choices=['posts', 'micro', 'reviews', 'bookmarks', 'music'], default='posts', help="Type of content")
     
     # Clean command
     parser_clean = subparsers.add_parser("clean", help="Clean the output directory")

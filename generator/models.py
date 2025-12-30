@@ -155,3 +155,12 @@ class Bookmark(ContentItem):
              
         return kwargs
 
+
+@register_content_type('music')
+@dataclass
+class Music(Bookmark):
+    @property
+    def has_single_embed(self) -> bool:
+        # Check if there is exactly one iframe
+        # We look for <iframe because counting content.count('<iframe') is reliable enough for generated HTML
+        return self.content.count('<iframe') == 1

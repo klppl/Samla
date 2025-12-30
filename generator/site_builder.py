@@ -130,19 +130,14 @@ class SiteBuilder:
         posts = self.content_loader.load_content()
         
         # Generate stats
-        stats = {
-            'total': len(posts),
-            'micro': len([p for p in posts if p.type == 'micro']),
-            'posts': len([p for p in posts if p.type == 'posts']),
-            'reviews': len([p for p in posts if p.type == 'reviews']),
-            'bookmarks': len([p for p in posts if p.type == 'bookmarks'])
-        }
+        stats = {'total': len(posts)}
+        for ctype in CONTENT_TYPES.keys():
+            stats[ctype] = len([p for p in posts if p.type == ctype])
         
         print(f"✔ {stats['total']} total items")
-        print(f"  ✔ {stats['micro']} micro")
-        print(f"  ✔ {stats['posts']} posts")
-        print(f"  ✔ {stats['reviews']} reviews")
-        print(f"  ✔ {stats['bookmarks']} bookmarks")
+        for ctype, count in stats.items():
+            if ctype == 'total': continue
+            print(f"  ✔ {count} {ctype}")
         
         # Dynamic footer message
         import random
@@ -192,6 +187,8 @@ class SiteBuilder:
             if post.type == 'reviews' and not self.config.features.get('reviews_in_index', True):
                 continue
             if post.type == 'bookmarks' and not self.config.features.get('bookmarks_in_index', True):
+                continue
+            if post.type == 'music' and not self.config.features.get('music_in_index', True):
                 continue
             if post.hide_from_home:
                 continue

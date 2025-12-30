@@ -98,6 +98,11 @@ Embed a responsive YouTube video.
 Renders a star rating (e.g., 9.5/10).
 `{{< rating score="9.5" max_score="10" >}}`
 
+**SoundCloud**
+Embed a SoundCloud track using either its ID or URL.
+- ID: `{{< soundcloud 123456789 >}}`
+- URL: `{{< soundcloud "https://soundcloud.com/artist/song" >}}`
+
 **Spoiler**
 Renders a collapsible block.
 ```markdown

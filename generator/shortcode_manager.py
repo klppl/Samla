@@ -13,10 +13,10 @@ class ShortcodeManager:
         self._discover_shortcodes()
         
         # Regex for {{< name args >}} or block {{< name args >}}...{{< /name >}}
-        # 1. Name
+        # 1. Name (alphanumeric + underscore + hyphen)
         # 2. Args
         # 3. Content (optional, if closing tag exists)
-        self.pattern = re.compile(r'{{<\s*(\w+)\s*(.*?)\s*>}}(?:(.*?){{<\s*/\1\s*>}})?', re.DOTALL)
+        self.pattern = re.compile(r'{{<\s*([\w-]+)\s*(.*?)\s*>}}(?:(.*?){{<\s*/\1\s*>}})?', re.DOTALL)
 
     def _discover_shortcodes(self):
         """Dynamically load shortcode modules."""
@@ -51,8 +51,11 @@ class ShortcodeManager:
         args_str = match.group(2)
         inner_content = match.group(3) # Can be None
         
-        if name not in self.shortcodes:
-            print(f"Warning: Shortcode '{name}' not found.")
+        # Normalize hyphens to underscores for python module lookup
+        lookup_name = name.replace('-', '_')
+        
+        if lookup_name not in self.shortcodes:
+            print(f"Warning: Shortcode '{name}' (lookup: '{lookup_name}') not found.")
             return match.group(0) # Return original text
             
         args, kwargs = self._parse_args(args_str)
@@ -64,7 +67,7 @@ class ShortcodeManager:
             kwargs['content'] = inner_content
         
         try:
-            return str(self.shortcodes[name](*args, **kwargs))
+            return str(self.shortcodes[lookup_name](*args, **kwargs))
         except Exception as e:
             print(f"Error rendering shortcode '{name}': {e}")
             return f"<!-- Error rendering {name}: {e} -->"
