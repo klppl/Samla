@@ -123,7 +123,7 @@ class BlogPost(ContentItem):
 @dataclass
 class Review(ContentItem):
     rating: Optional[float] = None
-    watched_on: Optional[str] = None
+
 
     @property
     def star_string(self) -> str:

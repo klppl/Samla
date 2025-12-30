@@ -51,11 +51,7 @@
         {% endif %}
     </div>
 
-    {% if post.type == 'reviews' and post.frontmatter.watched_on %}
-    <div class="review-meta-block">
-        <span class="watched">{{ i18n.watched_on|default('Watched') }}: {{ post.frontmatter.watched_on }}</span>
-    </div>
-    {% endif %}
+
 
     {% if post.type == 'bookmarks' %}
     <!-- Removed redundant bookmark buttons as per new design -->
