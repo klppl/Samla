@@ -75,19 +75,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyFilter(type, isVisible) {
         // Find all items of this type
-        // Use a more specific selector if possible to avoid hiding things in "Related Posts" etc if we only want main stream
-        // But globally hiding might be what is expected.
         const items = document.querySelectorAll(`.post-item[data-type="${type}"]`);
         items.forEach(item => {
+            // Toggle the item itself
             if (isVisible) {
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
             }
-        });
 
-        // Handle dividers? <hr class="post-divider"> usually follows post.
-        // If we hide post, we might want to hide divider too.
-        // CSS: .post-item[style*="none"] + .post-divider { display: none; }
+            // Toggle the following divider if it exists
+            const nextElement = item.nextElementSibling;
+            if (nextElement && nextElement.classList.contains('post-divider')) {
+                if (isVisible) {
+                    nextElement.style.display = '';
+                } else {
+                    nextElement.style.display = 'none';
+                }
+            }
+        });
     }
 });
