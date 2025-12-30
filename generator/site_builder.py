@@ -200,6 +200,8 @@ class SiteBuilder:
 
         if self.config.features.get('tags'):
             self._render_tags(posts)
+            # Render the big index
+            self._render_tag_index(posts)
         
         if self.config.features.get('categories'):
             self._render_categories(posts)
@@ -509,6 +511,48 @@ class SiteBuilder:
                 
         # Optional: Render tag list page
         
+    def _render_tag_index(self, posts: List[ContentItem]):
+        """Renders the comprehensive tag index page at /index."""
+        # Collect tags and their posts
+        tags = {}
+        for post in posts:
+            # Skip hidden posts if necessary, but indexes usually show everything or follow same rules
+            if post.hide_from_home and self.config.features.get('hide_hidden_from_index', True):
+                 pass # Decide if we want to hide "hide_from_home" posts from this index too. 
+                 # User said "index all the pages". Let's include everything for now, or respect drafted.
+                 # Actually, usually 'hide_from_home' means just the home stream. A specific index should probably list them.
+                 # Let's include them.
+            
+            for tag in post.tags:
+                if tag not in tags:
+                    tags[tag] = []
+                tags[tag].append(post)
+                
+        # Sort posts in each tag by Title (A-Z) for a directory feel, or Date? 
+        # User screenshot is a list of links. Title usually makes sense for an "Index".
+        # But for valid context, date might be better. 
+        # Let's sort by Title for now as it looks like a directory.
+        for tag in tags:
+            tags[tag].sort(key=lambda x: x.title)
+            
+        # Sort tags alphabetically
+        sorted_tags = sorted(tags.items()) # List of (tag, posts)
+        
+        index_dir = self.output_dir / 'index'
+        index_dir.mkdir(exist_ok=True)
+        
+        current_url = "/index/"
+        
+        html = self._render_template('tag_index.html', {
+            'site': self.config,
+            'tag_groups': sorted_tags,
+            'title': 'Index',
+            'canonical_url': f"{self.config.base_url}/index/"
+        }, current_url=current_url)
+        
+        with open(index_dir / 'index.html', 'w', encoding='utf-8') as f:
+            f.write(html)
+
     def _render_categories(self, posts: List[ContentItem]):
         # Collect categories
         categories = {}
@@ -698,22 +742,33 @@ class SiteBuilder:
                 parsed = urlparse(href)
                 # Check if absolute URL and different domain
                 if parsed.scheme and parsed.netloc and parsed.netloc != base_netloc:
-                    # Parse existing query params
-                    query_params = parse_qs(parsed.query)
-                    
-                    # Add ref param
-                    query_params['ref'] = [base_netloc]
-                    
-                    # Reconstruct URL
-                    new_query = urlencode(query_params, doseq=True)
-                    new_href = urlunparse((
-                        parsed.scheme,
-                        parsed.netloc,
-                        parsed.path,
-                        parsed.params,
-                        new_query,
-                        parsed.fragment
-                    ))
+                    if parsed.fragment:
+                        # Append ref to fragment
+                        # Check if fragment already has query params logic (contains ?)
+                        sep = '&' if '?' in parsed.fragment else '?'
+                        new_fragment = f"{parsed.fragment}{sep}ref={base_netloc}"
+                        new_href = urlunparse((
+                            parsed.scheme,
+                            parsed.netloc,
+                            parsed.path,
+                            parsed.params,
+                            parsed.query,
+                            new_fragment
+                        ))
+                    else:
+                        # Add ref param to query (standard)
+                        query_params['ref'] = [base_netloc]
+                        
+                        # Reconstruct URL
+                        new_query = urlencode(query_params, doseq=True)
+                        new_href = urlunparse((
+                            parsed.scheme,
+                            parsed.netloc,
+                            parsed.path,
+                            parsed.params,
+                            new_query,
+                            parsed.fragment
+                        ))
                     
                     a_tag['href'] = new_href
             except Exception as e:

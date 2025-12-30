@@ -1,7 +1,7 @@
 ---
 title: "{title}"
 date: {datetime}
-emoji: 🎵
+emoji: "🎵"
 link: 
 tags:
   - music

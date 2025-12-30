@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header">
+    <h1 class="page-title">{{ title }}</h1>
+</header>
+
+<div class="tag-index-container">
+    {% for tag, items in tag_groups %}
+    <div class="tag-group">
+        <h2 class="tag-group-title">{{ tag }}</h2>
+        <ul class="tag-group-list">
+            {% for post in items %}
+            <li>
+                <a href="{{ rel_url(post.url) }}"><span class="post-emoji">{{ post.icon }}</span> {{ post.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+/* Tag Index Page (Masonry Layout) */
+.tag-index-container {
+    column-count: 3;
+    column-gap: 2rem;
+
+    @media (max-width: 900px) {
+        column-count: 2;
+    }
+
+    @media (max-width: 600px) {
+        column-count: 1;
+    }
+}
+
+.tag-group {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+
+    /* Optional: Card style */
+    /* background: var(--bg-card); */
+    /* padding: 1rem; */
+    /* border-radius: 8px; */
+}
+
+.tag-group-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--primary-color, #333);
+    display: inline-block;
+}
+
+.tag-group-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+        line-height: 1.4;
+
+        a {
+            text-decoration: none;
+            color: var(--font-color, #ccc);
+
+            &:hover {
+                text-decoration: underline;
+                color: var(--primary-color, #007bff);
+            }
+        }
+    }
+}
+
+.post-emoji {
+    margin-right: 0.3em;
+    font-style: normal;
+    display: inline-block;
+}
