@@ -190,6 +190,8 @@ class SiteBuilder:
                 continue
             if post.type == 'music' and not self.config.features.get('music_in_index', True):
                 continue
+            if post.type == 'pages':
+                continue
             if post.hide_from_home:
                 continue
             index_posts.append(post)
@@ -434,7 +436,8 @@ class SiteBuilder:
                 'posts': page_posts,
                 'title': self.config.title,
                 'pagination': pagination,
-                'canonical_url': canonical_url
+                'canonical_url': canonical_url,
+                'is_home': page_num == 1
             }, current_url=current_url)
             
             with open(output_path, 'w', encoding='utf-8') as f:
@@ -518,10 +521,10 @@ class SiteBuilder:
         for post in posts:
             # Skip hidden posts if necessary, but indexes usually show everything or follow same rules
             if post.hide_from_home and self.config.features.get('hide_hidden_from_index', True):
-                 pass # Decide if we want to hide "hide_from_home" posts from this index too. 
-                 # User said "index all the pages". Let's include everything for now, or respect drafted.
-                 # Actually, usually 'hide_from_home' means just the home stream. A specific index should probably list them.
-                 # Let's include them.
+                 pass 
+            
+            if post.type == 'pages':
+                continue
             
             for tag in post.tags:
                 if tag not in tags:
@@ -596,9 +599,12 @@ class SiteBuilder:
         
         # RSS links should be absolute for readers, using base_url if available
         # But here we just render the XML.
+        
+        rss_posts = [p for p in posts if p.type != 'pages']
+        
         rss_content = self.renderer.render('rss.xml', {
             'site': self.config,
-            'posts': posts,
+            'posts': rss_posts,
             'now': datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
         })
         

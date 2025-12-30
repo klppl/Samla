@@ -19,7 +19,7 @@ A flexible, Python-based static site generator customized for personal websites.
 
 ## Features
 
--   **Content Types**: Specialized support for Posts, Micro-updates, Reviews (with ratings), and Bookmarks via a Registry Pattern.
+-   **Content Types**: Specialized support for Posts, Micro-updates, Reviews (with ratings), Bookmarks, and **Static Pages** via a Registry Pattern.
 -   **Performance**:
     -   **Incremental Builds**: Caches Markdown processing for faster regeneration (`.cache/`).
     -   **Asset Optimization**: Automatic minification of CSS/JS and image resizing/WebP conversion.
@@ -133,7 +133,7 @@ def render(message, type="info"):
 
 Site settings are located in `config.yaml`.
 -   **Site Metadata**: Title, URL, Author, Language (`site.language`).
--   **Navigation**: Menu links configuration.
+-   **Navigation**: Menu links configuration. Supports multi-row layout (e.g., `first_row`, `second_row`).
 -   **Humans.txt**: Dynamic generation via `humans:` block (Team, Thanks, Site, Custom).
 -   **Data Files**: Support for `data/` directory (accessible via `site.data`).
 -   **Root Files**: Support for `files/` directory (copied directly to root).

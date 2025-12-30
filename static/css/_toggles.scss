@@ -6,7 +6,8 @@
     position: relative;
 
     @media (max-width: 600px) {
-        margin-right: 0.8rem;
+        margin-right: 0;
+        /* Let Grid handle spacing */
     }
 }
 

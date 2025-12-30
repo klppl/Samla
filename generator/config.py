@@ -14,13 +14,37 @@ def load_config(config_path: str) -> SiteConfig:
     humans = data.get('humans', {})
     menu_data = data.get('menu', [])
     
-    menu = [MenuLink(
-        name=item['name'], 
-        url=item['url'], 
-        icon=item.get('icon', ''), 
-        type=item.get('type'),
-        break_before=item.get('break_before', False)
-    ) for item in menu_data]
+    menu = []
+    
+    if isinstance(menu_data, dict):
+        # Handle rows (first_row, second_row, etc.)
+        # We assume iteration order is preserved (Python 3.7+)
+        is_first_row = True
+        for row_name, items in menu_data.items():
+            if not isinstance(items, list): continue
+            
+            for i, item in enumerate(items):
+                # Force break_before on the first item of subsequent rows
+                force_break = (not is_first_row) and (i == 0)
+                
+                menu.append(MenuLink(
+                    name=item['name'], 
+                    url=item['url'], 
+                    icon=item.get('icon', ''), 
+                    type=item.get('type'),
+                    break_before=item.get('break_before', False) or force_break
+                ))
+            is_first_row = False
+            
+    elif isinstance(menu_data, list):
+        # Handle legacy flat list
+        menu = [MenuLink(
+            name=item['name'], 
+            url=item['url'], 
+            icon=item.get('icon', ''), 
+            type=item.get('type'),
+            break_before=item.get('break_before', False)
+        ) for item in menu_data]
     
     frontpage_filter = data.get('frontpage_filter', {})
 

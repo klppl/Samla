@@ -40,9 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (storedState !== null) {
             limitState = storedState === 'true';
+        } else if (toggle.dataset.default) {
+            // Respect config default (Python 'False' or 'True')
+            const def = toggle.dataset.default.toLowerCase();
+            limitState = def !== 'false' && def !== '0' && def !== 'none';
         } else {
-            // Fallback if data-default missing logic later
-            // For now assume true
+            // Fallback if data-default missing
             limitState = true;
         }
 

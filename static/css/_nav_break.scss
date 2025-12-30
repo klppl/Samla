@@ -4,9 +4,23 @@
     /* Enable wrapping */
     row-gap: 0.5rem;
     /* Balanced spacing */
+
+    @media (max-width: 600px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem 0;
+        /* Vertical gap 0.5rem, Horizontal 0 (handled by justify) */
+        justify-items: center;
+        /* Center items in their cells */
+    }
 }
 
 .nav-break {
     flex-basis: 100%;
     height: 0;
+
+    @media (max-width: 600px) {
+        display: none;
+        /* Hide specific break on mobile, rely on grid */
+    }
 }

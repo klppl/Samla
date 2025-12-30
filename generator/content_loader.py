@@ -149,8 +149,11 @@ class ContentLoader:
                 date_obj = datetime.now()
 
             # URL construction: /{localized_section}/{slug}/
-            url_section = self.url_slugs.get(section, section)
-            url = f"/{url_section}/{slug}/"
+            if section == 'pages':
+                url = f"/{slug}/"
+            else:
+                url_section = self.url_slugs.get(section, section)
+                url = f"/{url_section}/{slug}/"
             
             # Tags and Categories
             tags_raw = frontmatter.get('tags', [])

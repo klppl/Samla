@@ -56,7 +56,7 @@
                         {% endif %}
                         <span class="nav-text">{{ item.name }}</span>
                     </a>
-                    {% if item.type %}
+                    {% if item.type and is_home %}
                     <button class="content-toggle" data-type="{{ item.type }}"
                         data-default="{{ site.frontpage_filter[item.type] }}"
                         aria-label="Toggle {{ item.name }} content" title="Toggle {{ item.name }} on/off">

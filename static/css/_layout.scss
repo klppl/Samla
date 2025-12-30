@@ -79,6 +79,12 @@
         color: var(--primary-color);
         border-color: var(--primary-color);
     }
+
+    @media (max-width: 600px) {
+        grid-column: 1 / -1;
+        /* Span full width on mobile grid */
+        justify-self: center;
+    }
 }
 
 /* Footer */
