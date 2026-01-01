@@ -8,10 +8,14 @@
     @media (max-width: 600px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem 0;
-        /* Vertical gap 0.5rem, Horizontal 0 (handled by justify) */
-        justify-items: center;
-        /* Center items in their cells */
+        gap: 0.5rem 1rem;
+        /* Vertical gap 0.5rem, Horizontal 1rem */
+        justify-items: start;
+        /* Left-align items in their cells */
+        max-width: 350px;
+        /* Constrain width to keep columns neat */
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
