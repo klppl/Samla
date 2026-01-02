@@ -723,6 +723,9 @@ class SiteBuilder:
 
         try:
             rel_path = os.path.relpath(to_url, from_dir)
+            # Preserve trailing slash if original had it and rel_path doesn't
+            if to_url.endswith('/') and not rel_path.endswith('/'):
+                 rel_path += '/'
             return rel_path
         except ValueError:
             return to_url
