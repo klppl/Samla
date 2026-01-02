@@ -48,6 +48,7 @@ class SiteConfig:
     files_dir: str = 'files'
     humans: Dict[str, Any] = field(default_factory=dict)
     frontpage_filter: Dict[str, bool] = field(default_factory=dict)
+    index_filter: Dict[str, bool] = field(default_factory=dict)
 
 @dataclass
 class ContentItem:

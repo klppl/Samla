@@ -519,6 +519,13 @@ class SiteBuilder:
         # Collect tags and their posts
         tags = {}
         for post in posts:
+            # Filter based on index_filter
+            filter_config = self.config.index_filter if self.config.index_filter else self.config.frontpage_filter
+            
+            # If config exists for this type and is False, skip it
+            if post.type in filter_config and not filter_config[post.type]:
+                continue
+
             # Skip hidden posts if necessary, but indexes usually show everything or follow same rules
             if post.hide_from_home and self.config.features.get('hide_hidden_from_index', True):
                  pass 

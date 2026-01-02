@@ -47,6 +47,7 @@ def load_config(config_path: str) -> SiteConfig:
         ) for item in menu_data]
     
     frontpage_filter = data.get('frontpage_filter', {})
+    index_filter = data.get('index_filter', {})
 
     return SiteConfig(
         title=site.get('title', 'My Site'),
@@ -62,5 +63,6 @@ def load_config(config_path: str) -> SiteConfig:
         social=social,
         humans=humans,
         background_image=site.get('background_image', ''),
-        frontpage_filter=frontpage_filter
+        frontpage_filter=frontpage_filter,
+        index_filter=index_filter
     )

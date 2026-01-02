@@ -8,7 +8,7 @@
 <div class="tag-index-container">
     {% for tag, items in tag_groups %}
     <div class="tag-group">
-        <h2 class="tag-group-title">{{ tag }}</h2>
+        <h2 class="tag-group-title"><a href="{{ rel_url('/tags/' ~ tag ~ '/') }}">{{ tag }}</a></h2>
         <ul class="tag-group-list">
             {% for post in items %}
             <li>

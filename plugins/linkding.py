@@ -107,8 +107,9 @@ def command_import_linkding(args):
             current_content = re.sub(r'^hide_from_home:\s*false$', 'hide_from_home: true', current_content, flags=re.MULTILINE)
             
             tags_list = bookmark.get('tag_names', [])
-            if 'linkding' not in tags_list:
-                tags_list.append('linkding')
+            # Remove the sync tag (e.g. 'bloggen') from the tags list
+            if args.tag in tags_list:
+                tags_list.remove(args.tag)
             current_content = re.sub(r'^tags:\s*\[\]$', lambda m: f'tags: {tags_list}', current_content, flags=re.MULTILINE)
 
             # Append description to body
