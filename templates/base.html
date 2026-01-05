@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.title }}{% if post %} - {{ post.title }}{% endif %}</title>
     <link rel="stylesheet" href="{{ rel_url('/static/css/style.css') }}">
+    {% if site.style and site.style.main_font %}
+    <style>
+        :root {
+            --main-font: {{ site.style.main_font | safe }};
+        }
+    </style>
+    {% endif %}
 
     <script src="{{ rel_url('/static/js/theme.js') }}"></script>
     <script src="{{ rel_url('/static/js/toggles.js') }}" defer></script>
@@ -13,7 +20,6 @@
     {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}" />
     {% endif %}
-
 
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed"
         href="{{ rel_url('/rss.xml') }}" />

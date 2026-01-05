@@ -14,7 +14,7 @@ html {
 body {
     background-color: var(--bg-color);
     color: var(--font-color);
-    font-family: Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace;
+    font-family: var(--main-font, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace);
     font-size: 1rem;
     line-height: var(--global-line-height);
     margin: 0;

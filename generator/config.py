@@ -11,6 +11,7 @@ def load_config(config_path: str) -> SiteConfig:
     content = data.get('content', {})
     features = data.get('features', {})
     social = data.get('social', {})
+    style = data.get('style', {})
     humans = data.get('humans', {})
     menu_data = data.get('menu', [])
     
@@ -61,6 +62,7 @@ def load_config(config_path: str) -> SiteConfig:
         posts_per_page=content.get('posts_per_page', 10),
         features=features,
         social=social,
+        style=style,
         humans=humans,
         background_image=site.get('background_image', ''),
         frontpage_filter=frontpage_filter,
