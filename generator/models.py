@@ -174,3 +174,4 @@ class Music(Bookmark):
 @dataclass
 class Page(ContentItem):
     pass
+

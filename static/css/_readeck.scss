@@ -1,0 +1,9 @@
+/* Readeck styles */
+/* Timeline logic is now handled by the global .stream and .post-item classes. */
+/* Double nesting in template was fixed, so we can rely on standard _components.scss styles. */
+
+/* Optional: Tweaks for the read-later list if needed */
+.read-later-stream {
+    /* Standard stream has 120px margin. We can keep that or adjust if needed. */
+    /* Leave empty to inherit default timeline look */
+}

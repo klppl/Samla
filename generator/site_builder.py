@@ -83,6 +83,13 @@ class SiteBuilder:
         if not date_obj:
             return ""
             
+        if isinstance(date_obj, str):
+            try:
+                # Try parsing ISO format (YYYY-MM-DD) which is what we store
+                date_obj = datetime.fromisoformat(date_obj)
+            except ValueError:
+                return date_obj # Return as-is if parse fails
+            
         if 'date' not in self.locale_data:
             return date_obj.strftime("%Y-%m-%d")
 
@@ -344,10 +351,14 @@ class SiteBuilder:
         post_dir.mkdir(parents=True, exist_ok=True)
         
         # Determine template
-        # Try to find {type}.html, else fall back to post.html
-        template_name = f"{post.type}.html"
-        if not os.path.exists(f"templates/{template_name}"):
-             template_name = 'post.html'
+        # Check frontmatter for explicit template
+        if post.frontmatter.get('template'):
+            template_name = post.frontmatter['template']
+        else:
+            # Try to find {type}.html, else fall back to post.html
+            template_name = f"{post.type}.html"
+            if not os.path.exists(f"templates/{template_name}"):
+                 template_name = 'post.html'
         
         # Get related posts
         related_posts = self._get_related_posts(post)
